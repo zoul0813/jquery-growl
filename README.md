@@ -4,10 +4,11 @@ jquery-growl
 jQuery Growl is a Growl like notification plugin for jQuery
 
 ## USAGE
-
-	$.growl(title, msg);
-	$.growl(title, msg, image);
-	$.growl(title, msg, image, priority);
+```javascript
+$.growl(title, msg);
+$.growl(title, msg, image);
+$.growl(title, msg, image, priority);
+```
 
 ## THEMES
 
