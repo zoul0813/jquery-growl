@@ -58,6 +58,7 @@ smaller area with "overflow: scroll" enabled?
 * NOT BACKWARDS COMPATIBLE
 	* $.growl(settingsObject); // calls 'init'
 	* $.growl('notify', notifyObject); 
+	
 			notifyObject = { title:strTitle, message: strMessage, image: strImageUrl, priority: strPriority };
 			// notifyObject can override settingsObject and defaults as well
 			notifyObject = { 
