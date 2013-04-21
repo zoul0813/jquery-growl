@@ -3,12 +3,6 @@ jquery-growl
 
 jQuery Growl is a Growl like notification plugin for jQuery
 
-## DEMO
-
-Check out a live demo here: 
-
-http://projects.zoulcreations.com/jquery/growl
-
 ## USAGE
 ```javascript
 $.growl(title, msg);
