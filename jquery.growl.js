@@ -1,6 +1,6 @@
 /*
 * jQuery Growl plugin
-* Version 1.0.3
+* Version 1.0.2
 * @requires jQuery v1.3.2 or later
 *
 * Examples at: http://fragmentedcode.com/jquery-growl
@@ -52,7 +52,7 @@ smaller area with "overflow: scroll" enabled?
 
 (function($) {
 	$.growl = function(title,message,image,priority) { notify(title,message,image,priority); }
-	$.growl.version = "1.0.3";
+	$.growl.version = "1.0.2";
 
 	function create(rebuild) {
 		var instance = document.getElementById('growlDock');
