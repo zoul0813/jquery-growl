@@ -52,6 +52,24 @@ smaller area with "overflow: scroll" enabled?
 
 ## CHANGELOG
 
+### 2013-04-21
+* Updated code to 1.1.0
+* Example now uses jQuery 1.9.1
+* NOT BACKWARDS COMPATIBLE
+	* $.growl(settingsObject); // calls 'init'
+	* $.growl('notify', notifyObject); 
+		notifyObject = { title:strTitle, message: strMessage, image: strImageUrl, priority: strPriority };
+		// notifyObject can override settingsObject and defaults as well
+		notifyObject = { 
+			title:strTitle, 
+			message: strMessage, 
+			image: strImageUrl, 
+			priority: strPriority,
+			noticeCss: {
+				backgroundColor: '#f00',
+			}
+		};
+
 ### 2008-09-04
 * Added the 'noticeDisplay' function so you can override the display functionality
 * Added the 'noticeRemove' function so you can override the remove functionality

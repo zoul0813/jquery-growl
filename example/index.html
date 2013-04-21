@@ -76,94 +76,77 @@ Copyright &copy; 2008 David Higgins. All rights reserved.<br />
 <br />
 </center>
 </div>
-
-<div style="display: none;">
-  <div class="notice">
-    <div>
-      <h1>%title%</h1>
-      <p>%message%</p>
-    </div>
-  </div>
-</div>
-
 <script type="text/javascript">
 $(document).ready(function() {
-  $('.noticeTitle').val(title);
-  $('#updateNoticeMessage').click(function() {
-    msg = $('.noticeMessage').val();
-    title = $('.noticeTitle').val();
-  $.growl(title, msg);
-  });
+	$('.noticeTitle').val(title);
+	$('#updateNoticeMessage').click(function() {
+		msg = $('.noticeMessage').val();
+		title = $('.noticeTitle').val();
+		$.growl('notify', {title: title, message: msg });
+	});
 
-  $('#cancelF1').click(function() {
-    clearInterval(f1);
-  });
+	$('#cancelF1').click(function() {
+		clearInterval(f1);
+	});
 
-  $('#cancelF2').click(function() {
-    clearInterval(f2);
-  });
+	$('#cancelF2').click(function() {
+		clearInterval(f2);
+	});
 
-  $('#cancelF3').click(function() {
-    clearInterval(f3);
-  });
+	$('#cancelF3').click(function() {
+		clearInterval(f3);
+	});
 
-  $.growl.settings.displayTimeout = 7200;
-  $.growl.settings.dockCss.width = '225px';
-  $.growl.settings.noticeTemplate = ''
-	+ '<table width="225" border="0" cellpadding="0" cellspacing="0">'
-	+ '	<tr>'
-	+ '		<td style="background-image: url(dark_matter/images/dm_top.png); width: 225px; height: 49px; background-repeat: no-repeat; color: #fff;">'
-	+ '			<img src="%image%" style="max-width: 25px; max-height: 25px; text-align: center; margin-left: 19px; margin-top: 19px;" />'
-	+ '			<h1 style="font-size: 18px; margin: 0pt; margin-left: 5px; margin-bottom: 10px; display: inline;">%title%</h1>'
-	+ '		</td>'
-	+ '	</tr>'
-	+ '	<tr>'
-	+ '		<td style="background-image: url(dark_matter/images/dm_repeat.png); width: 225px; background-repeat: repeat-y; color: #ddd;">'
-	+ '			<p style="margin: 20px;">%message%</p>'
-	+ '		</td>'
-	+ '	</tr>'
-	+ '	<tr>'
-	+ '	<td style="background-image: url(dark_matter/images/dm_bottom.png); background-repeat: no-repeat; width: 225px; height: 27px;" valign="top" align="right" >'
-	+ '			<a style="margin-right: 25px; font-size: 10px; color: #fff; text-align: right;" href="" onclick="return false;" rel="close">Close</a>'
-	+ '		</td>'
-	+ '	</tr>'
-	'+ </table>';
-  /*
-    + '<div class="%priority%">'
-    + '<div style="float: right; background-image: url(my.growlTheme/normalTop.png); position: relative; width: 259px; height: 16px; margin: 0pt;"></div>'
-    + '<div style="float: right; background-image: url(my.growlTheme/normalBackground.png); position: relative; font-family: Arial; font-size: 12px; line-height: 14px; width: 259px; margin: 0pt;">'
-    + '  <img style="margin: 14px; margin-top: 0px; float: left;" src="%image%" />'
-    + '  <h3 style="margin: 0pt; margin-left: 77px; padding: 0px; padding-bottom: 10px; font-size: 13px;">%title% (%priority%)</h3>'
-    + '  <p style="margin: 0pt 14px; margin-left: 77px; font-size: 12px;">%message%</p>'
-    + '</div>'
-    + '<div style="float: right; background-image: url(my.growlTheme/normalBottom.png); position: relative; width: 259px; height: 16px; margin-bottom: 10px;"></div>'
-    + '</div>';
-  */
-  //$.growl.settings.noticeElement($('.notice'));
-  $.growl.settings.noticeCss = {
-    position: 'relative'
-  };
+	$.growl({
+		displayTimeout: 7200,
+		dockCss: { 
+			width: '225px',
+		},
+		noticeTemplate: ''
+			+ '<table width="225" border="0" cellpadding="0" cellspacing="0">'
+			+ '	<tr>'
+			+ '		<td style="background-image: url(dark_matter/images/dm_top.png); width: 225px; height: 49px; background-repeat: no-repeat; color: #fff;">'
+			+ '			<img src="%image%" style="max-width: 25px; max-height: 25px; text-align: center; margin-left: 19px; margin-top: 19px;" />'
+			+ '			<h1 style="font-size: 18px; margin: 0pt; margin-left: 5px; margin-bottom: 10px; display: inline;">%title%</h1>'
+			+ '		</td>'
+			+ '	</tr>'
+			+ '	<tr>'
+			+ '		<td style="background-image: url(dark_matter/images/dm_repeat.png); width: 225px; background-repeat: repeat-y; color: #ddd;">'
+			+ '			<p style="margin: 20px;">%message%</p>'
+			+ '		</td>'
+			+ '	</tr>'
+			+ '	<tr>'
+			+ '	<td style="background-image: url(dark_matter/images/dm_bottom.png); background-repeat: no-repeat; width: 225px; height: 27px;" valign="top" align="right" >'
+			+ '			<a style="margin-right: 25px; font-size: 10px; color: #fff; text-align: right;" href="" onclick="return false;" rel="close">Close</a>'
+			+ '		</td>'
+			+ '	</tr>'
+			+ '</table>',
+		noticeCss: {
+			position: 'relative',
+			backgroundColor: 'transparent',
+		},
+	});
 
-  var msg = 'How are you doing?<br /><b>CSS Bugs with IE</b>: I am aware that the default template on this page has display issues with IE, however, I dislike IE with a passion, so ... please use Safari or Firefox to view this demo properly.  The plugin itself has full support for IE 6/7, the template used here does not.';
-  var title = 'Hello World';
-  $.growl(title, msg);
-  var f1 = setInterval(function() {
-    $.get('fortune.php', null, function(data, status) {
-    $.growl('Fortune', data);
-  });
-  }, 6600);
+	var msg = 'How are you doing?<br /><b>CSS Bugs with IE</b>: I am aware that the default template on this page has display issues with IE, however, I dislike IE with a passion, so ... please use Safari or Firefox to view this demo properly.  The plugin itself has full support for IE 6/7, the template used here does not.';
+	var title = 'Hello World';
+	$.growl('notify', {title: title, message: msg });
+	var f1 = setInterval(function() {
+		$.get('fortune.php', null, function(data, status) {
+			$.growl('notify', { title: 'Fortune', message: data });
+		});
+	}, 6600);
 
-  var f2 = setInterval(function() {
-    $.get('fortune.php', null, function(data, status) {
-    $.growl('Fortune', data, 'info.png', 'medium');
-  });
-  }, 8900);
+	var f2 = setInterval(function() {
+		$.get('fortune.php', null, function(data, status) {
+			$.growl('notify', { title: 'Fortune', message: data, image: 'info.png', priority: 'medium'});
+		});
+	}, 8900);
 
-  var f3 = setInterval(function() {
-    $.get('fortune.php', null, function(data, status) {
-    $.growl('Fortune', data, 'error.png', 'high');
-  });
-  }, 22400);
+	var f3 = setInterval(function() {
+		$.get('fortune.php', null, function(data, status) {
+			$.growl('notify', { title: 'Fortune', message: data, image: 'error.png', priority: 'high' });
+		});
+	}, 22400);
 });
 </script>
 </body>
