@@ -1,7 +1,20 @@
+/*
+* jQuery Growl plugin
+* Version 1.1.0
+* @requires jQuery v1.3.2 or later
+*
+* Examples at: http://fragmentedcode.com/jquery-growl
+* Copyright (c) 2008-2013 David Higgins
+* 
+* Special thanks to Daniel Mota for inspiration:
+* http://icebeat.bitacoras.com/mootools/growl/
+*/
+
 (function($) {
 
 	// default settings for $.growl
 	var settings = {
+		growlVersion: '1.1.0',
 		dockTemplate: '<div></div>',
 		dockDefaultCss: {
 			position: 'fixed',
