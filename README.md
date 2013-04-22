@@ -40,7 +40,7 @@ $.growl({
 ```
 To change the 'dock' look, and position: 
 ```javascript
-$.growl(){
+$.growl({
 	dockTemplate: '<div></div>',
 	dockCss: {
 		position: 'absolute',
