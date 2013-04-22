@@ -14,7 +14,7 @@ http://projects.zoulcreations.com/jquery/growl
 $.growl('notify', { title: strTitle, message: strMessage, image: strImage, priority: strPriority });
 // image is optional assuming that growl.jpg is available
 // priority is optional, and can be used in templates to change notice appearances through CSS
-// ** <div class="%priority%"></div>
+//  <div class="%priority%"></div>
 ```
 
 ## THEMES
@@ -56,38 +56,38 @@ smaller area with "overflow: scroll" enabled?
 
 ## AVAILABLE SETTINGS
 
-	**dockTemplate**: '<div></div>',
-	*//reserved, use dockCss to override*
-	**dockDefaultCss**: {
+	dockTemplate: '<div></div>',
+	//reserved, use dockCss to override*
+	dockDefaultCss: {
 		position: 'fixed',
 		top: '10px',
 		right: '10px',
 		width: '300px',
 		zIndex: 50000
 	},
-	**dockCss**: {},
-	**noticeTemplate**: 
+	dockCss: {},
+	noticeTemplate: 
 		'<div class="notice">' +
 		' <h3 style="margin-top: 15px"><a rel="close">%title%</a></h3>' +
 		' <p>%message%</p>' +
 		'</div>',
-	*/reserved, use noticeCss to override	
-	**noticeDefaultCss**: {
+	//reserved, use noticeCss to override	
+	noticeDefaultCss: {
 		backgroundColor: 'rgba(100, 100, 100, 0.75)',
 		color: '#ffffff'
 	},
-	**noticeCss**: {},
-	**noticeDisplay**: function(notice) {
+	noticeCss: {},
+	noticeDisplay: function(notice) {
 		notice.css({'opacity':'0'}).fadeIn(settings.noticeFadeTimeout);
 	},
-	**noticeRemove**: function(notice, callback) {
+	noticeRemove: function(notice, callback) {
 		notice.animate({opacity: '0', height: '0px'}, {duration:settings.noticeFadeTimeout, complete: callback});
 	},
-	**noticeFadeTimeout**: 'slow',
-	**displayTimeout**: 3500,
-	**defaultImage**: 'growl.jpg',
-	**defaultStylesheet**: null,
-	**noticeElement**: function(el) {
+	noticeFadeTimeout: 'slow',
+	displayTimeout: 3500,
+	defaultImage: 'growl.jpg',
+	defaultStylesheet: null,
+	noticeElement: function(el) {
 		settings.noticeTemplate = $(el);
 	}
 
