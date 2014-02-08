@@ -89,7 +89,7 @@
     function startF1() {
       var f = function() {
         console.log('F1');
-        $.get('fortune.php', null, function(data, status) {
+        $.get('../fortune.php', null, function(data, status) {
           $.growl({title: 'Fortune', message: data} );
         });
       };
@@ -98,7 +98,7 @@
 
     function startF2() {
       var f = function() {
-        $.get('fortune.php', null, function(data, status) {
+        $.get('../fortune.php', null, function(data, status) {
           $.growl({title: 'Fortune', message: data, priority: 'warning'} );
         });
       };
@@ -107,7 +107,7 @@
 
     function startF3() {
       var f = function() {
-        $.get('fortune.php', null, function(data, status) {
+        $.get('../fortune.php', null, function(data, status) {
           $.growl({title: 'Fortune', message: data, priority: 'danger'} );
         });
       };
