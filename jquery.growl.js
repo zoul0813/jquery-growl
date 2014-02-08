@@ -1,121 +1,131 @@
 /*
-* jQuery Growl plugin
-* Version 1.1.0
-* @requires jQuery v1.3.2 or later
-*
-* Examples at: http://fragmentedcode.com/jquery-growl
-* Copyright (c) 2008-2013 David Higgins
-* 
-* Special thanks to Daniel Mota for inspiration:
-* http://icebeat.bitacoras.com/mootools/growl/
-*/
+ * jQuery Growl plugin
+ * Version 2.0.0
+ * Last Updated 2014-02-08
+ * @requires jQuery v1.11.0 or later (untested on previous version)
+ *
+ * Examples at: http://fragmentedcode.com/jquery-growl
+ * Copyright (c) 2008-2014 David Higgins
+ * 
+ * Special thanks to Daniel Mota for inspiration:
+ * http://icebeat.bitacoras.com/mootools/growl/
+ */
+ 
+(function() {
+  var growl = {
+    getInstance: function(rebuild) {
+      var instance = $('#' + settings.dockId);
+      if(instance.length < 1 || rebuild === true) {
+        instance = $(settings.dockTemplate).attr('id', settings.dockId).css(settings.dockCss).addClass(settings.dockClass);
+    	  if(settings.defaultStylesheet) {
+    	    $('head').appendTo('<link rel="stylesheet" type="text/css" href="' + settings.defaultStylesheet + '" />');
+    	  }
+    	  $(settings.dockContainerSelector).append(instance);
+      }
+      return instance;
+    },
+    notify: function(title, message, priority) {
+      var instance = this.getInstance();
+      var notice = $(settings.noticeTemplate).hide().css(settings.noticeCss).addClass(settings.noticeClass);
+      
+      if(!priority) { priority = 'primary'; }
+      switch(priority) {
+        case 'info': notice.addClass('panel-info'); break;
+        case 'success': notice.addClass('panel-success'); break;
+        case 'warning': notice.addClass('panel-warning'); break;
+        case 'danger': notice.addClass('panel-danger'); break;
+        default: notice.addClass('panel-primary'); break;        
+      }
 
-(function($) {
+      $('.title', notice).css(settings.noticeTitleCss).html(title);
+      
+      $('.close', notice).click(function(evt) {
+        evt.preventDefault();
+        $(this).closest('.notice').remove();
+      })
+      
+      $('.message', notice)
+      .html(message);
 
-	// default settings for $.growl
-	var settings = {
-		growlVersion: '1.1.0',
-		dockTemplate: '<div></div>',
-		dockDefaultCss: {
-			position: 'fixed',
-			top: '10px',
-			right: '10px',
-			width: '300px',
-			zIndex: 50000
-		},
-		dockCss: {},
-		noticeTemplate: 
-			'<div class="notice">' +
-			' <h3 style="margin-top: 15px"><a rel="close">%title%</a></h3>' +
-			' <p>%message%</p>' +
-			'</div>',
-		noticeDefaultCss: {
-			backgroundColor: 'rgba(100, 100, 100, 0.75)',
-			color: '#ffffff'
-		},
-		noticeCss: {},
-		noticeDisplay: function(notice) {
-			notice.css({'opacity':'0'}).fadeIn(settings.noticeFadeTimeout);
-		},
-		noticeRemove: function(notice, callback) {
-			notice.animate({opacity: '0', height: '0px'}, {duration:settings.noticeFadeTimeout, complete: callback});
-		},
-		noticeFadeTimeout: 'slow',
-		displayTimeout: 3500,
-		defaultImage: 'growl.jpg',
-		defaultStylesheet: null,
-		noticeElement: function(el) {
-			$.growl.settings.noticeTemplate = $(el);
-		}	
-	};
-
-	var methods = {
-		// $.growl('init', {dockTemplate:'<span></span>'});
-		init: function(options) {
-			// extend/override default settings
-			settings = $.extend(settings, options);
-		},
-		// $.growl('notify', {title:'Title',,message:'Message',image:'image.png',priority:'high'})
-		notify: function(options) {
-			var opts = $.extend(settings, options);
-			
-			var instance = $('#growlDock');
-			if(!instance || instance.length < 1) {
-				instance = $(settings.dockTemplate)
-					.css(settings.dockDefaultCss)
-					.css(settings.dockCss)
-					.attr('id', 'growlDock')
-					.addClass('growl');
-				if(settings.defaultStylesheet) {
-					$('head').append('<link rel="stylesheet" type="text/css" href="' + settings.defaultStylesheet + '" />');
-				}
-				$('body').append(instance.css(settings.dockCss));
-			}
-			
-			function r(text, expr, val) {
-				while(expr.test(text)) {
-					text = text.replace(expr, val);
-				}
-				return text;
-			};
-			
-			var html = settings.noticeTemplate;
-			if(typeof(html) == 'object') html = $(html).html();
-			html = r(html, /%message%/, (opts.message?opts.message:''));
-			html = r(html, /%title%/, (opts.title?opts.title:''));
-			html = r(html, /%image%/, (opts.image?opts.image:settings.defaultImage));
-			html = r(html, /%priority%/, (opts.priority?opts.priority:'normal'));
-
-			var notice = $(html)
-				.hide()
-				.css(settings.noticeDefaultCss)
-				.css(settings.noticeCss)
-				.fadeIn(settings.notice);;
-
-			settings.noticeDisplay(notice);
-			instance.append(notice);
-			$('a[rel="close"]', notice).click(function() {
-				notice.remove();
-			});
-			if (settings.displayTimeout > 0) {
-				setTimeout(function(){
-					settings.noticeRemove(notice, function(){
-						notice.remove();
-					});
-				}, settings.displayTimeout);
-			}
-		},
-	};
-
-	$.extend({
-		growl: function( method ) {
-			if ( methods[method] ) {
-				return methods[method].apply( this, Array.prototype.slice.call( arguments, 1 ));
-			} else if ( typeof method === 'object' || ! method ) {
-				return methods.init.apply( this, arguments );
-			} else {
-				$.error( 'Method ' +  method + ' does not exist on jQuery.growl' );
-			}
-		}
-	});
-})(jQuery);
+      console.log(notice);
+      instance.append(settings.noticeDisplay(notice));
+      if(settings.displayTimeout > 0 && settings.doNotClose.indexOf(priority) < 0) {
+        setTimeout(function() {
+          settings.noticeRemove(notice, function() {
+            notice.remove();
+          });
+        }, settings.displayTimeout);
+      }
+    },
+    r: function(text, expr, val) {
+    	while(expr.test(text)) {
+    	text = text.replace(expr, val);
+    	}
+    	return text;
+    },
+  }
+  
+  var settings = {
+    dockId: 'jqueryGrowlDock',
+    dockClass: 'growl',
+    dockTemplate: '<div></div>',
+    dockContainerSelector: 'body',
+  	dockCss: {
+  		position: 'fixed',
+  		top: '10px',
+  		right: '10px',
+  		width: '300px',
+  		zIndex: 50000
+  	},
+  	noticeTemplate: 
+  		'<div class="notice panel">' +
+    		'<div class="panel-heading ">' +
+    		  '<h3>' +
+    		    '<a class="title"></a>' +
+    		    '<button type="button" class="close">x</button>' +
+    		  '</h3>' +
+    		'</div>' +
+    		'<div class="message panel-body">%message%</div>' +
+  		'</div>',
+  	noticeCss: {
+  	},
+  	noticeTitleCss: {
+  	  color: '#fff',
+  	  textDecoration: 'none',
+  	},
+  	noticeDisplay: function(notice) {
+  		return notice.fadeIn(settings.noticeFadeTimeout);
+  	},
+  	noticeRemove: function(notice, callback) {
+  		return notice.animate({opacity: '0', height: '0px'}, {duration: settings.noticeFadeTimeout, complete: callback });
+  	},
+  	doNotClose: ['danger', ],
+  	noticeFadeTimeout: 'slow',
+  	displayTimeout: 3500,
+  	defaultStylesheet: null,
+  	noticeElement: function(el) {
+  		this.noticeTemplate = $(el);
+  	}
+  }
+  
+  $.growl = function(options) {
+    if(typeof options === 'object') {
+      if('settings' in options) {
+        settings = $.extend(settings, options.settings);
+      }
+      var title = 'Notice', message = null, priority = 'primary';
+      if('title' in options) {
+        title = options.title;
+      }
+      if('message' in options) {
+        message = options.message;
+      }
+      if('priority' in options) {
+        priority = options.priority;
+      }
+      if(message != null) {
+        growl.notify(title, message, priority);
+      }
+    }
+  }
+})();
