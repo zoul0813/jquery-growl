@@ -1,0 +1,167 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap-theme.min.css">
+  <style type="text/css">
+  body {
+    margin: 2em 0pt;
+  }
+  </style>
+</head>
+<body>
+  
+    <div class="container">
+      <div class="jumbotron">
+        <h1>jQuery Growl</h1>
+        <p>v2.0.0 has been completely rewritten from the ground up, and works out of the box with Bootstrap 3.</p>
+      </div>
+
+      <div class="well">
+        <p class="lead">This is a simple demo page for the jQuery Growl Plugin by David Higgins.</p>
+        <p>This page demonstrates the default style of jQuery Growl within a Bootstrap 3 site using "<em>bootstrap-theme.css</em>"</p>
+        <p>The plugin can be configured by calling $.growl() with a settings object (<code>{settings: {}}</code>). A full list of configurable options can be found below.</p>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="well">
+            <h3>Custom Notice</h3>
+            <div class="form-group">
+              <input type="text" class="form-control noticeTitle" placeholder="Type a notice here..." />
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control noticeMessage" placeholder="Type your message here..." />
+            </div>
+            <div class="form-group">
+              <select class="form-control noticePriority">
+                <option value="primary">Primary</option>
+                <option value="info">Info</option>
+                <option value="warning">Warning</option>
+                <option value="danger">Danger</option>
+              </select>
+            </div>
+            <button id="sendNotice" class="btn btn-default">Send Notice</button>
+            <button id="toggleF1" class="btn btn-success">Timer 1</button>
+            <button id="toggleF2" class="btn btn-success">Timer 2</button>
+            <button id="toggleF3" class="btn btn-success">Timer 3</button>
+            <p></p>
+            <p class="text-center"><small>To disable any of the default timers, click the appropriate red button</small></p>
+          </div>
+        </div>
+      </div>
+      <div class="footer">
+        <address class="text-center">
+        Copyright &copy; 2014 <a href="http://www.fragmentedcode.com/">David Higgins</a>. All rights reserved.<br />
+        Email: <a href="mailto:higginsd@zoulcreations.com">higginsd@zoulcreations.com</a><br />
+        fortune.php script from <a href="http://www.aasted.org/quote/" target="_blank">http://www.aasted.org/quote/</a></br >
+        fortune database from stock Mandriva 2008 fortune installation<br />
+        </address>
+      </div>
+    </div>
+  
+  
+  <!-- jQuery CDN -->
+  <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+  <script src="../../jquery.growl.js"></script>
+  <script type="text/javascript">
+  jQuery(function($) {
+
+    $.growl({
+      settings: { 
+        dockId: 'myCustomDockID',
+        displayTimeout: 2500,
+      }
+    });
+
+    console.log('Example scripts Loaded');
+    var msg = 'How are you doing?';
+    var title = 'Hello World';
+    $.growl({title: title, message: msg});
+
+    function startF1() {
+      var f = function() {
+        console.log('F1');
+        $.get('fortune.php', null, function(data, status) {
+          $.growl({title: 'Fortune', message: data} );
+        });
+      };
+      return setInterval(f, 2200);
+    }
+
+    function startF2() {
+      var f = function() {
+        $.get('fortune.php', null, function(data, status) {
+          $.growl({title: 'Fortune', message: data, priority: 'warning'} );
+        });
+      };
+      return setInterval(f, 8900);
+    }
+
+    function startF3() {
+      var f = function() {
+        $.get('fortune.php', null, function(data, status) {
+          $.growl({title: 'Fortune', message: data, priority: 'danger'} );
+        });
+      };
+      f();
+      return setInterval(f, 22400);
+    }
+
+    $('#toggleF1').click(function() {
+      $(this).toggleClass('btn-danger').toggleClass('btn-success');
+      if($(this).hasClass('btn-success')) {
+        console.log('Clearing F1', $(this).data('interval'));
+        clearInterval($(this).data('interval'));
+      } else {
+        var i = startF1();
+        console.log('Starting F1', i);
+        $(this).data('interval', i);
+      }
+    }); 
+
+    $('#toggleF2').click(function() {
+      $(this).toggleClass('btn-danger').toggleClass('btn-success');
+      if($(this).hasClass('btn-success')) {
+        console.log('Clearing F2', $(this).data('interval'));
+        clearInterval($(this).data('interval'));
+      } else {
+        var i = startF2();
+        console.log('Starting F2', i);
+        $(this).data('interval', i);
+      }
+    });
+
+    $('#toggleF3').click(function() {
+      $(this).toggleClass('btn-danger').toggleClass('btn-success');
+      if($(this).hasClass('btn-success')) {
+        console.log('Clearing F3', $(this).data('interval'));
+        clearInterval($(this).data('interval'));
+      } else {
+        var i = startF3();
+        console.log('Starting F3', i);
+        $(this).data('interval', i);
+      }
+    });
+
+    $('#sendNotice').click(function() {
+      var title = $('.noticeTitle').val();
+      var message = $('.noticeMessage').val();
+      var priority = $('.noticePriority').val();
+      $.growl({title: title, message: message, priority: priority});
+    });
+
+    setTimeout(function() {
+      $('#toggleF1, #toggleF2').click();
+    }, 3000);
+  });
+  </script>
+</body>
+<html>
