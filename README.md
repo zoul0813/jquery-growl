@@ -3,6 +3,8 @@ jQuery Growl
 
 jQuery Growl is a Growl like notification plugin for jQuery
 
+*THIS DOCUMENT IS OUT OF DATE*
+
 ## DEMO
 
 Check out a live demo here: 
