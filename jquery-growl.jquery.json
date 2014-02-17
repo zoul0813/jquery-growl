@@ -1,14 +1,14 @@
 {
     "name": "jquery-growl",
     "title": "jQuery Growl",
-    "description": "A Growl like notification plugin for jQuery",
+    "description": "A Growl like notification plugin for jQuery originally written for jQuery 1.2 and updated for jQuery 1.10+. The latest version comes with a Bootstrap 3 example.",
     "keywords": [
         "growl",
         "notification",
         "alert",
         "notice"
     ],
-    "version": "2.0.3",
+    "version": "2.0.4",
     "author": {
         "name": "David Higgins",
         "url": "http://www.fragmentedcode.com"
@@ -29,6 +29,7 @@
     "bugs": "https://github.com/zoul0813/jquery-growl/issues",
     "homepage": "https://www.fragmentedcode.com/jquery-growl",
     "docs": "http://www.fragmentedcode.com/jquery-growl/",
+    "demo": "http://projects.zoulcreations.com/jquery/jquery-growl/",
     "dependencies": {
         "jquery": ">=1.10"
     }

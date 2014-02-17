@@ -1,6 +1,6 @@
 /*
  * jQuery Growl plugin
- * Version 2.0.3
+ * Version 2.0.4
  * Last Updated 2014-02-08
  * @requires jQuery v1.11.0 or later (untested on previous version)
  *
