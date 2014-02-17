@@ -8,9 +8,9 @@
         "alert",
         "notice"
     ],
-    "version": "2.0.2",
+    "version": "2.0.3",
     "author": {
-        "name": "David Higgins <higginsd@zoulcreations.com>",
+        "name": "David Higgins",
         "url": "http://www.fragmentedcode.com"
     },
     "maintainers": [
