@@ -9,6 +9,8 @@
  * 
  * Special thanks to Daniel Mota for inspiration:
  * http://icebeat.bitacoras.com/mootools/growl/
+ *
+ * Released under MIT License.
  */
  
 (function() {
