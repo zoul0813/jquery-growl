@@ -1,5 +1,5 @@
 {
-    "name": "growl",
+    "name": "jquery-growl",
     "title": "jQuery Growl",
     "description": "A Growl like notification plugin for jQuery",
     "keywords": [
